@@ -22,10 +22,11 @@ spec:
     spec:
       initContainers:
         - name: install-kubectl
-          image: registry.k8s.io/kubectl:v1.36.0
-          command: ["sh", "-c", "cp /usr/local/bin/kubectl /tools/kubectl"]
+          image: alpine/kubectl:v1.36.0
+          command:
+            ["sh", "-c", "cp $(which kubectl) /tools/kubectl && chmod +x /tools/kubectl"]
           volumeMounts:
-            - name: tools-bin
+            - name: tools
               mountPath: /tools
 
       containers:
@@ -40,16 +41,15 @@ spec:
               cpu: "1000m"
               memory: "1Gi"
           env:
-            - configMapRef:
-                name: velocity-config
+            - name: PATH
+              value: "/tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
           ports:
             - name: minecraft
               containerPort: 25565
               protocl: TCP
           volumeMounts:
-            - name: tools-bin
-              mountPath: /usr/local/bin/kubectl
-              subPath: kubectl
+            - name: tools
+              mountPath: /tools
             - name: velocity-config
               mountPath: /config/velocity.toml
               subPath: velocity.toml
@@ -61,7 +61,7 @@ spec:
               subPath: autostartstop.yml
 
       volumes:
-        - name: tools-bind
+        - name: tools
           emptyDir: {}
         - name: velocity-config
           configMap:
