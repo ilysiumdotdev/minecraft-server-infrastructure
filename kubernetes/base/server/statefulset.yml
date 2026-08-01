@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: server
+  name: mc-server
   namespace: minecraft
 spec:
-  serviceName: server
+  serviceName: mc-server
   selector:
     matchLabels:
-      app.kubernetes.io/name: server
+      app.kubernetes.io/name: mc-server
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: server
+        app.kubernetes.io/name: mc-server
   spec:
     containers:
       - name: minecraft
