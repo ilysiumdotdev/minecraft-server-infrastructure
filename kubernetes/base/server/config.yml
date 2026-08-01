@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mc-common-config
+  namespace: minecraft
+data:
+  EULA: "TRUE"
+  TYPE: "PAPER"
+  ONLINE_MODE: "false"
+  ENABLE_ROCN: "true"

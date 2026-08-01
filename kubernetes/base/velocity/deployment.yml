@@ -28,7 +28,6 @@ spec:
           volumeMounts:
             - name: tools
               mountPath: /tools
-
       containers:
         - name: velocity
           image: itzg/mc-proxy:2026.7.1-java25
@@ -59,7 +58,6 @@ spec:
             - name: velocity-config
               mountPath: /config/plugins/autostartstop/config.yml
               subPath: autostartstop.yml
-
       volumes:
         - name: tools
           emptyDir: {}
