@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mc-thebes
+spec:
+  serviceName: mc-thebes
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: mc-thebes
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: mc-thebes
+    spec:
+      containers:
+        - name: minecraft
+          envFrom:
+            - configMapRef:
+                name: mc-thebes-config
+            - secretRef:
+                name: mc-thebes-rcon-creds
+          volumeMounts:
+            - name: paper-global
+              mountPath: /config/paper-global.yml
+              subPath: paper-global.yml
+      volumes:
+        - name: paper-global
+          secret:
+            secretName: mc-thebes-paper-global
