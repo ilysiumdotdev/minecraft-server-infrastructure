@@ -65,7 +65,7 @@ spec:
               subPath: velocity.toml
             - name: forwarding-secret
               mountPath: /config/forwarding.secret
-              subPath: forwarding-secret
+              subPath: forwarding_secret
       volumes:
         - name: tools
           emptyDir: {}

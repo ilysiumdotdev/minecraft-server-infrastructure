@@ -14,6 +14,9 @@ patches:
       kind: StatefulSet
       name: mc-server
 configMapGenerator:
+  - name: mc-thebes-paper-global-tpl
+    files:
+      - paper-global.yml=config/paper-global.yml
   - name: mc-thebes-server-plugins
     files:
       - plugins.txt=plugins/plugins.txt
