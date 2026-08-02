@@ -12,37 +12,37 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: mc-server
-  spec:
-    containers:
-      - name: minecraft
-        image: itzg/minecraft-server:2026.7.2-java25
-        resources:
-          requests:
-            cpu: "500m"
-            memory: "2Gi"
-          limits:
-            cpu: "2"
-            memory: "4Gi"
-        ports:
-          - name: minecraft
-            containerPort: 25565
-          - name: rcon
-            containerPort: 25575
-        envFrom:
-          - configMapRef:
-              name: mc-common-config
-        readinessProbe:
-          exec:
-            command: ["mc-monitor", "status", "--host", "localhost"]
-          initialDelaySeconds: 20
-          periodSeconds: 10
-          failureThreshold: 60
-        volumeMounts:
-          - name: data
-            mountPath: /data
-          - name: paper-global
-            mountPath: /config/paper-global.yml
-            subPath: paper-global.yml
+    spec:
+      containers:
+        - name: minecraft
+          image: itzg/minecraft-server:2026.7.2-java25
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "2Gi"
+            limits:
+              cpu: "2"
+              memory: "4Gi"
+          ports:
+            - name: minecraft
+              containerPort: 25565
+            - name: rcon
+              containerPort: 25575
+          envFrom:
+            - configMapRef:
+                name: mc-common-config
+          readinessProbe:
+            exec:
+              command: ["mc-monitor", "status", "--host", "localhost"]
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            failureThreshold: 60
+          volumeMounts:
+            - name: data
+              mountPath: /data
+            - name: paper-global
+              mountPath: /config/paper-global.yml
+              subPath: paper-global.yml
   volumes:
     - name: paper-global
       secret:
