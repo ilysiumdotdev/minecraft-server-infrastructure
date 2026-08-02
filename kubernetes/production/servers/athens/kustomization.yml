@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - ../../../templates/server
   - configmap.yml
+  - externalsecrets.yml
 patches:
   - path: service.yml
     target:
