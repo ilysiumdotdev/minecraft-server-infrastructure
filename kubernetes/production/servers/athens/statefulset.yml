@@ -19,7 +19,7 @@ spec:
               value: "/extras/plugins.txt"
           envFrom:
             - configMapRef:
-                name: mc-athens-config
+                name: mc-athens-server-config
             - secretRef:
                 name: mc-athens-rcon-creds
           volumeMounts:

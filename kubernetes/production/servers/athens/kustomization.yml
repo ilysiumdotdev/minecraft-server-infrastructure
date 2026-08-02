@@ -13,9 +13,9 @@ patches:
       kind: StatefulSet
       name: mc-server
 configMapGenerator:
-  - name: mc-athens-config
+  - name: mc-athens-server-config
     envs:
-      - server.env
+      - config/server.env
   - name: mc-athens-paper-global-tpl
     files:
       - paper-global.yml=config/paper-global.yml

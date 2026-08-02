@@ -19,7 +19,7 @@ spec:
               value: "/extras/plugins.txt"
           envFrom:
             - configMapRef:
-                name: mc-thebes-config
+                name: mc-thebes-server-config
             - secretRef:
                 name: mc-thebes-rcon-creds
           volumeMounts:

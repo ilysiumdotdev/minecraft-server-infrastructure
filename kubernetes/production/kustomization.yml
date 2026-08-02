@@ -5,7 +5,7 @@ resources:
   - servers/athens
   - servers/thebes
 configMapGenerator:
-  - name: mc-common=config
+  - name: mc-common-config
     literals:
       - TYPE=PAPER
       - EULA=true
