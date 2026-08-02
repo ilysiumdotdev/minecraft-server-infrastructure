@@ -1,29 +1,74 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+
 resources:
-  - ../../../templates/server
+  - ../../../base/server
   - externalsecrets.yml
-patches:
-  - path: service.yml
-    target:
-      kind: Service
-      name: mc-server
-  - path: statefulset.yml
-    target:
-      kind: StatefulSet
-      name: mc-server
+
+namePrefix: thebes-
+
 configMapGenerator:
-  - name: mc-thebes-server-config
+  - name: mc-server-config
     envs:
-      - config/server.env
-  - name: mc-thebes-paper-global-tpl
-    files:
-      - paper-global.yml=config/paper-global.yml
-  - name: mc-thebes-server-plugins
+      - server.env
+  - name: mc-server-plugins
     files:
       - plugins.txt=plugins/plugins.txt
-  - name: mc-thebes-minimotd-config
-    files:
-      - main.conf=plugins/minimotd/main.conf
+
+labels:
+  - pairs:
+      app.kubernetes.io/name: minecraft
+      app.kubernetes.io/instance: thebes-mc
+    includeSelectors: true
+
+patches:
+  - target:
+      kind: StatefulSet
+      name: mc-server
+    patch: |-
+      - op: replace
+        path: /spec/serviceName
+        value: thebes-mc
+
+      - op: add
+        path: /spec/template/spec/containers/0/envFrom
+        value:
+          - configMapRef:
+              name: thebes-mc-server-config
+          - secretRef:
+              name: thebes-mc-rcon-creds
+
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: PLUGINS_FILE
+          value: /extras/plugins.txt
+
+      - op: add
+        path: /spec/template/spec/containers/0/volumeMounts/-
+        value:
+          name: server-plugins
+          mountPath: /extras/plugins.txt
+          subPath: plugins.txt
+          readOnly: true
+
+      - op: add
+        path: /spec/template/spec/containers/0/volumeMounts/-
+        value:
+          name: paper-global
+          mountPath: /config/paper-global.yml
+          subPath: paper-global.yml
+          readOnly: true
+
+      - op: add
+        path: /spec/template/spec/volumes
+        value:
+          - name: server-plugins
+            configMap:
+              name: thebes-mc-server-plugins
+          - name: paper-global
+            secret:
+              secretName: paper-global-config
+
 generatorOptions:
   disableNameSuffixHash: true

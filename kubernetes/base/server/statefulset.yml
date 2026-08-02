@@ -4,14 +4,16 @@ metadata:
   name: mc-server
   namespace: minecraft
 spec:
-  serviceName: mc-server
+  serviceName: mc
   selector:
     matchLabels:
-      app.kubernetes.io/name: mc-server
+      app.kubernetes.io/name: minecraft
+      app.kubernetes.io/instance: mc-server
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: mc-server
+        app.kubernetes.io/name: minecraft
+        app.kubernetes.io/instance: mc-server
     spec:
       containers:
         - name: minecraft
@@ -28,9 +30,21 @@ spec:
               containerPort: 25565
             - name: rcon
               containerPort: 25575
-          envFrom:
-            - configMapRef:
-                name: mc-common-config
+          env:
+            - name: TYPE
+              value: "paper"
+            - name: EULA
+              value: "true"
+            - name: ONLINE_MODE
+              value: "false"
+            - name: ENABLE_WHITELIST
+              value: "true"
+            - name: ENABLE_RCON
+              value: "true"
+            - name: STOP_DURATION
+              value: "60"
+            - name: LOG_LEVEL
+              value: "info"
           readinessProbe:
             exec:
               command: ["mc-monitor", "status", "--host", "localhost"]
@@ -40,13 +54,6 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /data
-            - name: paper-global
-              mountPath: /config/paper-global.yml
-              subPath: paper-global.yml
-  volumes:
-    - name: paper-global
-      secret:
-        secretName: mc-common-paper-global
   volumeClaimTemplates:
     - metadata:
         name: data
