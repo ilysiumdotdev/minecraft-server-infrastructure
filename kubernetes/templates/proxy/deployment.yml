@@ -74,4 +74,4 @@ spec:
             name: velocity-runtime-config
         - name: forwarding-secret
           secret:
-            secretName: mc-forwarding-secret
+            secretName: velocity-forwarding-secret
