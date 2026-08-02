@@ -45,12 +45,12 @@ spec:
               cpu: "1000m"
               memory: "1Gi"
           env:
-            - name: EULA
-              value: "TRUE"
             - name: TYPE
               value: "VELOCITY"
             - name: VELOCITY_VERSION
               value: 4.0.0
+            - name: EULA
+              value: "TRUE"
             - name: PATH
               value: "/tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
           ports:
@@ -60,9 +60,18 @@ spec:
           volumeMounts:
             - name: tools
               mountPath: /tools
+            - name: velocity-config
+              mountPath: /config/velocity.toml
+              subPath: velocity.toml
+            - name: forwarding-secret
+              mountPath: /config/forwarding.secret
+              subPath: forwarding-secret
       volumes:
         - name: tools
           emptyDir: {}
         - name: velocity-config
           configMap:
             name: velocity-runtime-config
+        - name: forwarding-secret
+          secret:
+            secretName: mc-forwarding-secret

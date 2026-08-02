@@ -1,13 +1,23 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ../../../base/server
+  - ../../../templates/server
+  - configmap.yml
 patches:
   - path: service.yml
     target:
       kind: Service
-      name: server
+      name: mc-server
   - path: statefulset.yml
     target:
       kind: StatefulSet
-      name: server
+      name: mc-server
+configMapGenerator:
+  - name: mc-athens-server-plugins
+    files:
+      - plugins.txt=plugins/plugins.txt
+  - name: mc-athens-minimotd-config
+    files:
+      - main.conf=plugins/minimotd/main.conf
+generatorOptions:
+  disableNameSuffixHash: true

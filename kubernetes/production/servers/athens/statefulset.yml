@@ -14,16 +14,31 @@ spec:
     spec:
       containers:
         - name: minecraft
+          env:
+            - name: PLUGINS_FILE
+              value: "/extras/plugins.txt"
           envFrom:
             - configMapRef:
                 name: mc-athens-config
             - secretRef:
                 name: mc-athens-rcon-creds
           volumeMounts:
+            - name: server-plugins
+              mountPath: /extras/plugins.txt
+              subPath: plugins.txt
+            - name: minimotd-config
+              mountPath: /plugins/MiniMOTD/main.conf
+              subPath: main.conf
             - name: paper-global
               mountPath: /config/paper-global.yml
               subPath: paper-global.yml
       volumes:
+        - name: server-plugins
+          configMap:
+            name: mc-athens-server-plugins
+        - name: minimotd-config
+          configMap:
+            name: mc-athens-minimotd-config
         - name: paper-global
           secret:
             secretName: mc-athens-paper-global

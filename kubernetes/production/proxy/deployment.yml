@@ -12,28 +12,16 @@ spec:
             - name: PLUGINS_FILE
               value: "/extras/plugins.txt"
           volumeMounts:
-            - name: velocity-config
-              mountPath: /config/velocity.toml
-              subPath: velocity.toml
             - name: velocity-plugins
               mountPath: /extras/plugins.txt
               subPath: plugins.txt
             - name: autostartstop-config
               mountPath: /config/plugins/autostartstop/config.yml
-              subPath: 
-            - name: forwarding-secret
-              mountPath: /config/forwarding.secret
-              subPath: forwarding-secret
+              subPath:
       volumes:
-        - name: velocity-config
-          configMap:
-            name: velocity-config
         - name: velocity-plugins
           configMap:
             name: velocity-plugins
         - name: autostartstop-config
           configMap:
             name: autostartstop-config
-        - name: forwarding-secret
-          secret:
-            secretName: mc-forwarding-secret
