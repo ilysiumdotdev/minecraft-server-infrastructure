@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: velocity
+spec:
+  template:
+    spec:
+      containers:
+      - name: velocity
+        env:
+        - name: PLUGINS_FILE
+          value: "/extras/plugins.txt"
+        volumeMounts:
+        - name: velocity-config
+          mountPath: /config/velocity.toml
+          subPath: velocity.toml
+        - name: forwarding-secret
+          mountPath: /config/forwarding.secret
+          subPath: forwarding-secret
+        - name: velocity-plugins
+          mountPath: /extras/plugins.txt
+          subPath: plugins.txt
+      volumes:
+      - name: velocity-config
+        configMap:
+          name: velocity-config
+      - name: forwarding-secret
+        secret:
+          secretName: mc-forwarding-secret
+      - name: velocity-plugins
+        configMap:
+          name: velocity-plugins

@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base/velocity
+patches:
+  - path: deployment.yml
+    target:
+      kind: Deployment
+      name: velocity
+configMapGenerator:
+  - name: velocity-config
+    files:
+      - velocity.toml=config/velocity.toml
+  - name: velocity-plugins
+    files:
+      - plugins.txt=plugins/plugins.txt

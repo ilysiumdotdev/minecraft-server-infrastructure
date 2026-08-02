@@ -1,0 +1,13 @@
+## Velocity Proxy Plugins
+## This file contains a newline-delimited list of plugins to install for Velocity
+##
+
+## MiniMOTD
+## https://hangar.papermc.io/jmp/MiniMOTD
+##
+https://hangarcdn.papermc.io/plugins/jmp/MiniMOTD/versions/2.2.4/PAPER/minimotd-paper-2.2.4.jar
+
+## AutoStartStop
+## https://hangar.papermc.io/beyenilmez/AutoStartStop
+##
+https://hangarcdn.papermc.io/plugins/beyenilmez/AutoStartStop/versions/1.1.0-beta/VELOCITY/AutoStartStop-1.1.0-beta.jar

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mc-thebes-config
+  namespace: minecraft
+data:
+  SERVER_NAME: "Thebes"
+  VERSION: "1.26"
+  DIFFICULTY: "hard"
+  MODE: "survival"
+  FORCE_GAMEMODE: "survival"
+  MAX_PLAYERS: 10
