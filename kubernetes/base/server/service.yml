@@ -7,7 +7,7 @@ spec:
   selector:
     app.kubernetes.io/name: mc-server
   ports:
-    - name: game
+    - name: minecraft
       port: 25565
     - name: rcon
       port: 25575

@@ -4,7 +4,11 @@ metadata:
   name: mc-common-config
   namespace: minecraft
 data:
-  EULA: "TRUE"
   TYPE: "PAPER"
+  EULA: "true"
   ONLINE_MODE: "false"
-  ENABLE_ROCN: "true"
+  LOG_LEVEL: "info"
+  ENABLE_WHITELIST: "true"
+  ENABLE_RCON: "true"
+  RCON_PORT: 25575
+  STOP_DURATION: 60

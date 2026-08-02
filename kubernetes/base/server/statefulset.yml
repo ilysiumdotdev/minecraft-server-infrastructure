@@ -24,7 +24,7 @@ spec:
             cpu: "2"
             memory: "4Gi"
         ports:
-          - name: game
+          - name: minecraft
             containerPort: 25565
           - name: rcon
             containerPort: 25575
