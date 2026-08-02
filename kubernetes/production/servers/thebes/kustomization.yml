@@ -2,7 +2,6 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ../../../templates/server
-  - configmap.yml
   - externalsecrets.yml
 patches:
   - path: service.yml
@@ -14,6 +13,9 @@ patches:
       kind: StatefulSet
       name: mc-server
 configMapGenerator:
+  - name: mc-thebes-config
+    envs:
+      - server.env
   - name: mc-thebes-paper-global-tpl
     files:
       - paper-global.yml=config/paper-global.yml
