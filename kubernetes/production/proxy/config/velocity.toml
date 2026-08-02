@@ -1,6 +1,7 @@
 bind = "0.0.0.0:25565"
 player-info-forwarding-mode = "modern"
 ping-passthrough = "all"
+haproxy-protocol = "true"
 
 [servers]
 athens = "mc-athens.minecraft.svc:25565"
