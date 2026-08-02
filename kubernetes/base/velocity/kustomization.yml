@@ -1,6 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - velocity/deployment.yml
-  - velocity/rbac.yml
-  - velocity/service.yml
+  - deployment.yml
+  - rbac.yml
+  - service.yml
