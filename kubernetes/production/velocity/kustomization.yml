@@ -8,9 +8,14 @@ patches:
       kind: Deployment
       name: velocity
 configMapGenerator:
-  - name: velocity-config
+  - name: velocity-runtime-config
     files:
       - velocity.toml=config/velocity.toml
   - name: velocity-plugins
     files:
       - plugins.txt=plugins/plugins.txt
+  - name: autostartstop-config
+    files:
+      - config.yml=plugins/autostartstop/config.yml
+generatorOptions:
+  disableNameSuffixHash: true

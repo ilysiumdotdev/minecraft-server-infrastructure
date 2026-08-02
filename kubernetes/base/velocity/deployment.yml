@@ -20,6 +20,7 @@ spec:
         app.kubernetes.io/name: velocity
         app.kubernetes.io/instance: velocity
     spec:
+      serviceAccountName: velocity
       initContainers:
         - name: kubectl-install
           image: alpine/kubectl:v1.36.0
