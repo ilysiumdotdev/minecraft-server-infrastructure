@@ -14,6 +14,9 @@ configMapGenerator:
   - name: mc-server-plugins
     files:
       - plugins.txt=plugins/plugins.txt
+  - name: mc-paper-global-tpl
+    files:
+      - paper-global.yml=config/paper-global.yml
 
 labels:
   - pairs:
@@ -68,7 +71,7 @@ patches:
               name: thebes-mc-server-plugins
           - name: paper-global
             secret:
-              secretName: paper-global-config
+              secretName: thebes-mc-paper-global
 
 generatorOptions:
   disableNameSuffixHash: true
