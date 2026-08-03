@@ -24,19 +24,19 @@ rules:
           mode: all
           checks:
             - server_status:
-                server: ${connection.server.name}
+                server: $${connection.server.name}
                 status: offline
           then:
             - log:
                 level: INFO
-                message: "Connection from ${connection.player.name} triggered server auto start."
+                message: "Connection by $${connection.player.name} triggered auto start on $${connection.server.name}."
             - start:
-                server: ${connection.server.name}
+                server: $${connection.server.name}
             - while:
                 mode: all
                 checks:
                   - server_status:
-                      server: ${connection.server.name}
+                      server: $${connection.server.name}
                       status: offline
                 do:
                   - log:
@@ -45,8 +45,8 @@ rules:
                 timeout: 2m
                 update_interval: 10s
       - allow_connection:
-          connection: ${connection}
-          server: ${connection.server}
+          connection: $${connection}
+          server: $${connection.server}
   auto_sleep_on_empty:
     triggers:
       - empty_server:
@@ -54,6 +54,6 @@ rules:
     action:
       - log:
           level: INFO
-          message: "Server ${empty_server.server.name} has been empty for ${empty_server.empty_time}. Shutting down server..."
+          message: "Server $${empty_server.server.name} has been empty for $${empty_server.empty_time}. Shutting down server..."
       - stop:
-          server: ${empty_server.server.name}
+          server: $${empty_server.server.name}
