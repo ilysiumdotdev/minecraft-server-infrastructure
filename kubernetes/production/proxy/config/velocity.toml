@@ -3,8 +3,8 @@ player-info-forwarding-mode = "modern"
 ping-passthrough = "all"
 
 [servers]
-athens = "mc-athens.minecraft.svc:25565"
-thebes = "mc-thebes.minecraft.svc:25565"
+athens = "athens-mc.minecraft.svc:25565"
+thebes = "thebes-mc.minecraft.svc:25565"
 try = ["athens"]
 
 [forced-hosts]
