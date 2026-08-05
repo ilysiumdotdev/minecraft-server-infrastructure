@@ -7,7 +7,7 @@ spec:
   parentRefs:
     - name: perimeter-cluster-gateway
       namespace: envoy-gateway-system
-      sectionName: tcp-minecraft
+      sectionName: minecraft
   rules:
     - backendRefs:
         - name: velocity
