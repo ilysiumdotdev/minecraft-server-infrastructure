@@ -4,13 +4,13 @@ servers:
   athens:
     control_api:
       type: "shell"
-      start_command: "kubectl scale statefulset/mc-athens -n minecraft --replicas=1"
-      stop_command: "kubectl scale statefulset/mc-athens -n minecraft --replicas=0"
+      start_command: "kubectl scale deployment/mc-athens -n minecraft --replicas=1"
+      stop_command: "kubectl scale deploymentt/mc-athens -n minecraft --replicas=0"
   thebes:
     control_api:
       type: "shell"
-      start_command: "kubectl scale statefulset/mc-thebes -n minecraft --replicas=1"
-      stop_command: "kubectl scale statefulset/mc-thebes -n minecraft --replicas=0"
+      start_command: "kubectl scale deployment/mc-thebes -n minecraft --replicas=1"
+      stop_command: "kubectl scale deployment/mc-thebes -n minecraft --replicas=0"
 
 rules:
   auto_start_on_connect:

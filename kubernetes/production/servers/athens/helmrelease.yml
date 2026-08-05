@@ -1,0 +1,56 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: athens-mc
+  namespace: minecraft
+spec:
+  serviceAccountName: flux
+  targetNamespace: minecraft
+  interval: 30m
+  chart:
+    spec:
+      chart: minecraft
+      version: "5.1.3"
+      sourceRef:
+        kind: HelmRepository
+        name: minecraft-server-charts
+      interval: 12h
+  releaseName: athens-mc
+  postRenderers:
+    - kustomize:
+      patches:
+        - target:
+            kind: Deployment
+            name: athens-mc
+          patch: |
+            - op: remove
+              path: /spec/replicas
+  valuesFrom:
+    - kind: ConfigMap
+      name: mc-server-common-values
+      valuesKey: values.yml
+  values:
+    minecraftServer:
+      version: "1.26.2"
+      gameMode: survival
+      difficulty: hard
+      maxPlayers: 10
+      rcon:
+        existingSecret: athens-mc-rcon-secret
+        secretKey: rcon_password
+
+    extraVolumes:
+      - volumeMounts:
+          - name: paper-global
+            mountPath: /config/paper-global.yml
+            subPath: paper-global.yml
+          - name: plugins-config
+            mountPath: /plugins/MiniMOTD/main.conf
+            subPath: minimotd-main.conf
+        volumes:
+          - name: paper-global
+            secret:
+              secretName: paper-global-config
+          - name: plugins-config
+            configMap:
+              name: athens-mc-plugins-config

@@ -1,77 +1,14 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-
 resources:
-  - ../../../base/server
+  - helmrelease.yml
   - externalsecrets.yml
-
-namePrefix: athens-
+  - helmrelease.yml
 
 configMapGenerator:
-  - name: mc-server-config
-    envs:
-      - server.env
-  - name: mc-server-plugins
+  - name: athens-mc-plugins-config
     files:
-      - plugins.txt=plugins/plugins.txt
-  - name: mc-paper-global-tpl
-    files:
-      - paper-global.yml=config/paper-global.yml
-
-labels:
-  - pairs:
-      app.kubernetes.io/name: minecraft
-      app.kubernetes.io/instance: athens-mc
-    includeSelectors: true
-
-patches:
-  - target:
-      kind: StatefulSet
-      name: mc-server
-    patch: |-
-      - op: replace
-        path: /spec/serviceName
-        value: athens-mc
-
-      - op: add
-        path: /spec/template/spec/containers/0/envFrom
-        value:
-          - configMapRef:
-              name: athens-mc-server-config
-          - secretRef:
-              name: athens-mc-rcon-creds
-
-      - op: add
-        path: /spec/template/spec/containers/0/env/-
-        value:
-          name: PLUGINS_FILE
-          value: /extras/plugins.txt
-
-      - op: add
-        path: /spec/template/spec/containers/0/volumeMounts/-
-        value:
-          name: server-plugins
-          mountPath: /extras/plugins.txt
-          subPath: plugins.txt
-          readOnly: true
-
-      - op: add
-        path: /spec/template/spec/containers/0/volumeMounts/-
-        value:
-          name: paper-global
-          mountPath: /config/paper-global.yml
-          subPath: paper-global.yml
-          readOnly: true
-
-      - op: add
-        path: /spec/template/spec/volumes
-        value:
-          - name: server-plugins
-            configMap:
-              name: athens-mc-server-plugins
-          - name: paper-global
-            secret:
-              secretName: athens-mc-paper-global
+      - minimotd-main.conf=plugins/minimotd/main.conf
 
 generatorOptions:
   disableNameSuffixHash: true

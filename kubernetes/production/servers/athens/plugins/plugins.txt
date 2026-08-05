@@ -1,3 +1,0 @@
-## MiniMOTD
-##
-https://hangarcdn.papermc.io/plugins/jmp/MiniMOTD/versions/2.2.4/PAPER/minimotd-paper-2.2.4.jar

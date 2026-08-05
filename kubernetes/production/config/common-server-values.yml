@@ -1,0 +1,129 @@
+# ref: https://hub.docker.com/r/itzg/minecraft-server/
+image:
+  repository: itzg/minecraft-server
+  tag: 2026.7.2-java25
+
+# ### WARNING ###
+# Minecraft is not horizontally scalable - this setting cannot be changed.
+# ### WARNING ###
+replicaCount: 1
+
+## Configure resource requests and limits
+## ref: http://kubernetes.io/docs/user-guide/compute-resources/
+##
+resources:
+  requests:
+    cpu: 500m
+    memory: 2Gi
+  limits:
+    cpu: 2
+    memory: 4Gi
+
+# upgrade strategy type, depending on workload type:
+# - for Deployment sets strategy: Recreate or RollingUpdate
+# - for StatefulSet sets updateStrategy: OnDelete or RollingUpdate
+strategyType: Recreate
+
+# extraVolumes:
+#   - volumeMounts:
+#       - name: nfs
+#         mountPath: /mnt/volume
+#         readOnly: true
+#     volumes:
+#       - name: nfs
+#         nfs:
+#           server: some.nfs.server.com
+#           path: /
+#           mountOptions:
+#             - port=2049
+#             - hard
+#             - vers=4
+extraVolumes: []
+
+minecraftServer:
+  # This must be overridden, since we can't accept this for the user.
+  eula: "true"
+  ## The type of Minecraft server to run, check for related settings below
+  ## Common types: "VANILLA", "FABRIC", "FORGE", "SPIGOT", "BUKKIT", "PAPER",
+  ## "FTBA", "SPONGEVANILLA", "AUTO_CURSEFORGE"
+  ## ref: https://docker-minecraft-server.readthedocs.io/en/latest/types-and-platforms
+  type: "paper"
+  # If true, players will always join in the default gameMode even if they were previously set to something else.
+  forcegameMode: default
+  # Sets the area that non-ops can not edit (0 to disable)
+  spawnProtection: 0
+  # Check accounts against Minecraft account service.
+  onlineMode: "false"
+  # If you adjust this, you may need to adjust resources.requests above to match.
+  memory: 2048M
+  # General JVM options to be passed to the Minecraft server invocation
+  jvmOpts: ""
+  # Options like -X that need to proceed general JVM options
+  jvmXXOpts: ""
+  overrideServerProperties: default
+
+  serviceType: ClusterIP
+  # Set the external port of the service, useful when using the LoadBalancer service type
+  servicePort: 25565
+  clusterIP:
+
+  # List with URLs and paths to jar files, additionally may be a directory with jars
+  # This works for both mods and plugins depending on server type
+  pluginUrls:
+    - "https://hangarcdn.papermc.io/plugins/jmp/MiniMOTD/versions/2.2.4/PAPER/minimotd-paper-2.2.4.jar"
+
+  rcon:
+    enabled: true
+    withGeneratedPassword: false
+    port: 25575
+    serviceType: ClusterIP
+
+  ## set this to false to not have colorized logs
+  tty: false
+
+## Additional minecraft container environment variables
+## Values can be either variable values or `valueFrom` yaml
+##
+extraEnv: {}
+  # some_variable: some value
+  # another_variable:
+  #   valueFrom:
+  #     fieldRef:
+  #       fieldPath: status.hostIP
+
+## Additional environment variables to add to the minecraft container from
+## ConfigMaps and Secrets
+##
+envFrom: []
+
+persistence:
+  labels: {}
+  annotations: {}
+  ## specify an alternative volume to be mounted to /data instead of datadir.
+  # altDataVolumeName: ""
+  ## minecraft data Persistent Volume Storage Class
+  ## If defined, storageClassName: <storageClass>
+  ## If set to "-", storageClassName: "", which disables dynamic provisioning
+  ## If undefined (the default) or set to null, no storageClassName spec is
+  ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+  ##   GKE, AWS & OpenStack)
+  ##
+  # storageClass: "-"
+  dataDir:
+    # Set this to false if you don't care to persist state between restarts.
+    enabled: false
+    Size: 10Gi
+    accessModes:
+      - ReadWriteOnce
+
+podAnnotations: {}
+podLabels: {}
+
+deploymentAnnotations: {}
+deploymentLabels: {}
+
+serviceAnnotations: {}
+serviceLabels: {}
+
+rconServiceAnnotations: {}
+rconServiceLabels: {}

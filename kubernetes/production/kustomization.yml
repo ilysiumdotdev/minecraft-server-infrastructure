@@ -1,6 +1,43 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - proxy/
+  - ../base
   - servers/athens
   - servers/thebes
+  - externalsecrets.yml
+
+configMapGenerator:
+  - name: mc-server-common-values
+    files:
+      - values.yml=config/common-server-values.yml
+  - name: paper-global-tpl
+    files:
+      - paper-global.yml=config/paper-global.yml
+  - name: velocity-runtime-config
+    files:
+      - velocity.toml=proxy/config/velocity.toml
+  - name: velocity-plugins-config
+    files:
+      - autostartstop-config.yml=proxy/plugins/autostartstop/config.yml'
+
+patches:
+  - target:
+      kind: Deployment
+      name: velocity
+    patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/volumeMounts/-
+        value:
+          name: plugins-config
+          mountPath: /config/plugins/autostartstop/config.yml
+          subPath: autostartstop-config.yml
+          readOnly: true
+      - op: add
+        path: /sepc/template/spec/volumes/-
+        value:
+          name: plugins-config
+          configMap:
+            name: velocity-plugins-config
+
+generatorOptions:
+  disableNameSuffixHash: true
