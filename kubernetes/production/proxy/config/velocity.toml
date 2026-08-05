@@ -12,4 +12,4 @@ try = ["athens"]
 "thebes.mc.ilysium.io" = ["thebes"]
 
 [advanced]
-haproxy-protocol = "true"
+haproxy-protocol = true
