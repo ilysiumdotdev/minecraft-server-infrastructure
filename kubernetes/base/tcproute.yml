@@ -2,7 +2,7 @@ apiVersion: gateway.networking.k8s.io/v1alpha2
 kind: TCPRoute
 metadata:
   name: minecraft-route
-  namespace: vector
+  namespace: minecraft
 spec:
   parentRefs:
     - name: perimeter-cluster-gateway
