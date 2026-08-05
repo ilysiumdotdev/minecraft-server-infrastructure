@@ -18,13 +18,14 @@ spec:
   releaseName: thebes-mc
   postRenderers:
     - kustomize:
-      patches:
-        - target:
-            kind: Deployment
-            name: thebes-mc
-          patch: |
-            - op: remove
-              path: /spec/replicas
+        patches:
+          - target:
+              version: apps/v1
+              kind: Deployment
+              name: thebes-mc
+            patch: |
+              - op: remove
+                path: /spec/replicas
   valuesFrom:
     - kind: ConfigMap
       name: mc-server-common-values
