@@ -23,7 +23,7 @@ spec:
       serviceAccountName: velocity
       initContainers:
         - name: kubectl-install
-          image: alpine/kubectl:v1.36.0
+          image: alpine/kubectl:1.36.0
           command:
             [
               "sh",
