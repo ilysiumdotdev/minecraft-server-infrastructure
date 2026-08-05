@@ -18,7 +18,7 @@ configMapGenerator:
       - velocity.toml=proxy/config/velocity.toml
   - name: velocity-plugins-config
     files:
-      - autostartstop-config.yml=proxy/plugins/autostartstop/config.yml'
+      - autostartstop-config.yml=proxy/plugins/autostartstop/config.yml
 
 patches:
   - target:
@@ -33,7 +33,7 @@ patches:
           subPath: autostartstop-config.yml
           readOnly: true
       - op: add
-        path: /sepc/template/spec/volumes/-
+        path: /spec/template/spec/volumes/-
         value:
           name: plugins-config
           configMap:
