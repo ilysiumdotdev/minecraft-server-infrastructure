@@ -53,4 +53,4 @@ spec:
               secretName: paper-global-config
           - name: plugins-config
             configMap:
-              name: athens-mc-plugins-config
+              name: thebes-mc-plugins-config
