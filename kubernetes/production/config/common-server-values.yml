@@ -53,7 +53,7 @@ minecraftServer:
   # Sets the area that non-ops can not edit (0 to disable)
   spawnProtection: 0
   # Check accounts against Minecraft account service.
-  onlineMode: "false"
+  onlineMode: false
   # If you adjust this, you may need to adjust resources.requests above to match.
   memory: 2048M
   # General JVM options to be passed to the Minecraft server invocation
