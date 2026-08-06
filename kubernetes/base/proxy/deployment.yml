@@ -24,6 +24,14 @@ spec:
       initContainers:
         - name: kubectl-install
           image: alpine/kubectl:1.36.0
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - A::
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
           command:
             [
               "sh",
@@ -42,9 +50,9 @@ spec:
             capabilities:
               drop:
                 - ALL
-          runAsNonRoot: true
-          seccompProfile:
-            type: RuntimeDefault
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
           resources:
             requests:
               cpu: "250m"
