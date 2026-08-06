@@ -1,0 +1,3 @@
+## AutoStartStop
+##
+https://hangarcdn.papermc.io/plugins/beyenilmez/AutoStartStop/versions/1.1.0-beta/VELOCITY/AutoStartStop-1.1.0-beta.jar

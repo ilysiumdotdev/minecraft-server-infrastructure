@@ -16,6 +16,9 @@ configMapGenerator:
   - name: velocity-runtime-config
     files:
       - velocity.toml=proxy/config/velocity.toml
+  - name: velocity-plugins-list
+    files:
+      - plugins.txt=proxy/plugins/plugins.txt
   - name: velocity-plugins-config
     files:
       - autostartstop-config.yml=proxy/plugins/autostartstop/config.yml
@@ -26,12 +29,30 @@ patches:
       name: velocity
     patch: |-
       - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: PLUGINS_FILE
+          values: /extras/plugins.txt
+      - op: add
+        path: /spec/template/spec/containers/0/volumeMounts/-
+        value:
+          name: plugins-list
+          mountPath: /extras/plugins.txt
+          subPath: plugins.txt
+          readOnly: true
+      - op: add
         path: /spec/template/spec/containers/0/volumeMounts/-
         value:
           name: plugins-config
           mountPath: /config/plugins/autostartstop/config.yml
           subPath: autostartstop-config.yml
           readOnly: true
+      - op: add
+        path: /spec/template/spec/volumes/-
+        value:
+          name: plugins-list
+          configMap:
+            name: velocity-plugins-kust
       - op: add
         path: /spec/template/spec/volumes/-
         value:
