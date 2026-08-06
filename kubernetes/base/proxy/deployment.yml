@@ -25,11 +25,12 @@ spec:
         - name: kubectl-install
           image: alpine/kubectl:1.36.0
           securityContext:
+            runAsNonRoot: false
+            runAsNonRoot: 0
             allowPrivilegeEscalation: false
             capabilities:
               drop:
                 - ALL
-            runAsNonRoot: true
             seccompProfile:
               type: RuntimeDefault
           command:
