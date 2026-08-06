@@ -111,7 +111,7 @@ persistence:
   # storageClass: "-"
   dataDir:
     # Set this to false if you don't care to persist state between restarts.
-    enabled: false
+    enabled: true
     Size: 10Gi
     accessModes:
       - ReadWriteOnce
