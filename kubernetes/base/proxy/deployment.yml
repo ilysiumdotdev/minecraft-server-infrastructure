@@ -45,16 +45,6 @@ spec:
         - name: velocity
           image: itzg/mc-proxy:2026.7.1-java25
           imagePullPolicy: IfNotPresent
-          securityContext:
-            runAsNonRoot: false
-            allowPrivilegeEscalation: false
-            capabilities:
-              add:
-                - CHOWN
-              drop:
-                - ALL
-            seccompProfile:
-              type: RuntimeDefault
           resources:
             requests:
               cpu: "250m"
