@@ -26,7 +26,6 @@ spec:
           image: alpine/kubectl:1.36.0
           securityContext:
             runAsNonRoot: false
-            runAsUser: 0
             allowPrivilegeEscalation: false
             capabilities:
               drop:
@@ -51,7 +50,7 @@ spec:
             capabilities:
               drop:
                 - ALL
-            runAsNonRoot: true
+            runAsNonRoot: false
             seccompProfile:
               type: RuntimeDefault
           resources:
