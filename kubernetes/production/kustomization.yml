@@ -32,7 +32,7 @@ patches:
         path: /spec/template/spec/containers/0/env/-
         value:
           name: PLUGINS_FILE
-          values: /extras/plugins.txt
+          value: /extras/plugins.txt
       - op: add
         path: /spec/template/spec/containers/0/volumeMounts/-
         value:

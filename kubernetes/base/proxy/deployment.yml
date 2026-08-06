@@ -28,7 +28,7 @@ spec:
             allowPrivilegeEscalation: false
             capabilities:
               drop:
-                - A::
+                - ALL
             runAsNonRoot: true
             seccompProfile:
               type: RuntimeDefault
@@ -72,7 +72,7 @@ spec:
           ports:
             - name: minecraft
               containerPort: 25565
-              protocl: TCP
+              protocol: TCP
           volumeMounts:
             - name: tools
               mountPath: /tools
