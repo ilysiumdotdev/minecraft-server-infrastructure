@@ -52,7 +52,7 @@ patches:
         value:
           name: plugins-list
           configMap:
-            name: velocity-plugins-kust
+            name: velocity-plugins-list
       - op: add
         path: /spec/template/spec/volumes/-
         value:
