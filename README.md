@@ -65,7 +65,7 @@ resources:
 
 ![An image showing two Minecraft servers that are each sleeping due to inactivity. Each server's MOTD reads 'The server is currently asleep. Join to wake it up.'](/docs/images/minecraft_server_list_sleep.png)
 
-The [AutoStartStop](https://modrinth.com/plugin/autostartstop) plugin is used to automatically to automatically start and stop servers based on interaction, providing scale-to-zero functionality for resource savings on inactive instances. The plugin uses a rule-based system to define actions to take based on certain triggers:
+The [AutoStartStop](https://modrinth.com/plugin/autostartstop) plugin is used to automatically start and stop servers based on interaction, providing scale-to-zero functionality for resource savings on inactive instances. The plugin uses a rule-based system to define actions to take based on certain triggers:
 
 ```yaml
 rules:
