@@ -23,7 +23,7 @@ try = ["athens"]
 "thebes.mc.ilysium.io" = ["thebes"]
 ```
 
-Velocity is the only component of the Minecraft network exposed outside of Kubernetes on the cluster's Envoy Gateway, which routes raw TCP traffic to the velocity service with a TCP listener and **TCPRoute** (defined in `kubernetes/base/tcproute.yml`). In addition, each backend instance is configured with Velocity's **forwarding secret**, which means that backend servers will only accept connections coming from the Velocity proxy. The nuance with this approach is that because Velocity itself is behind a proxy, to extract real player IPs from connections, the parameter `haproxy-protocol` must be set to `true` under the `[advanced]` section of the `velocity.toml` config.
+Velocity is the only component of the Minecraft network exposed outside of Kubernetes on the cluster's Envoy Gateway, which routes raw TCP traffic to the Velocity service with a TCP listener and **TCPRoute** (defined in `kubernetes/base/tcproute.yml`). In addition, each backend instance is configured with Velocity's **forwarding secret**, which means that backend servers will only accept connections coming from the Velocity proxy. The nuance with this approach is that because Velocity itself is behind a proxy, to extract real player IPs from connections, the parameter `haproxy-protocol` must be set to `true` under the `[advanced]` section of the `velocity.toml` config.
 
 ```toml
 [advanced]
@@ -85,7 +85,7 @@ Although primarily used for start/stop behavior, these rules can also be used fo
 
 ### Secrets Management
 
-The External Secrets Operator is used to fetch sensitive server and plugin configuration values from a secure secrets storage solution. These secrets projected into the cluster as Kubernetes `Secret` objects, where they can then be templated into configuration files, or mounted directly into running containers as environment variables.
+The External Secrets Operator is used to fetch sensitive server and plugin configuration values from a secure secrets storage solution. These are secrets projected into the cluster as Kubernetes `Secret` objects, where they can then be templated into configuration files, or mounted directly into running containers as environment variables.
 
 ```yaml
 apiVersion: external-secrets.io/v1
@@ -111,7 +111,7 @@ spec:
 
 ### External Networking
 
-Because forwarding the default Minecraft port **TCP 25565** attracts attention from malicious bots and crawlers, `SRV` records are used on public DNS to direct the Minecraft client to a non-standard WAN port for client connections. The Minecraft client is capable of looking up `SRV` records that follow the format `_minecraft._tcp.<server-address>`, which means that no port needs to be specified when adding a server. This approach is used to provide a seamless user experience, all while masking the service from most automated, low-sophistication attacks.
+Because forwarding the default Minecraft port **TCP 25565** attracts attention from malicious bots and crawlers, `SRV` records are used on public DNS to direct the Minecraft client to a non-standard WAN port for client connections. The Minecraft client is capable of looking up `SRV` records that follow the format `_minecraft._tcp.<server-address>`, which means that no port needs to be specified when adding a server. This approach is used to provide a seamless user experience while masking the service from most automated, low-sophistication attacks.
 
 ***
 
