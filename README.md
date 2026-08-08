@@ -32,7 +32,7 @@ haproxy-protocl = true
 
 ### Servers
 
-The backend server instances are deployed and managed with Jeff Bourne's [Minecraft Server Helm Charts](https://github.com/itzg/minecraft-server-charts). The repository structure makes use of layered Helm values to efficiently combine common server configurations with instance-specific configs. Some examples:
+The backend server instances are deployed and managed with Geoff Bourne's [Minecraft Server Helm Charts](https://github.com/itzg/minecraft-server-charts). The repository structure makes use of layered Helm values to efficiently combine common server configurations with instance-specific configs. Some examples:
 
 **Common Values (shared `ConfigMap`)**
 
