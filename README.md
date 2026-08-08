@@ -23,7 +23,7 @@ try = ["athens"]
 "thebes.mc.ilysium.io" = ["thebes"]
 ```
 
-Velocity is the only component of the Minecraft network exposed outside of Kubernetes via the cluster's Envoy Gateway, which routes raw TCP traffic to the velocity service via a TCP listener and **TCPRoute** (defined in `kubernetes/base/tcproute.yml`). In addition, each backend instance is configured with Velocity's **forwarding secret**, which means that backend servers will only accept connections coming from the Velocity proxy. The nuance with this approach is that because Velocity itself is behind a proxy, to extract real player IPs from connections, the parameter `haproxy-protocol` must be set to `true` under the `[advanced]` section of the `velocity.toml` config.
+Velocity is the only component of the Minecraft network exposed outside of Kubernetes on the cluster's Envoy Gateway, which routes raw TCP traffic to the velocity service with a TCP listener and **TCPRoute** (defined in `kubernetes/base/tcproute.yml`). In addition, each backend instance is configured with Velocity's **forwarding secret**, which means that backend servers will only accept connections coming from the Velocity proxy. The nuance with this approach is that because Velocity itself is behind a proxy, to extract real player IPs from connections, the parameter `haproxy-protocol` must be set to `true` under the `[advanced]` section of the `velocity.toml` config.
 
 ```toml
 [advanced]
