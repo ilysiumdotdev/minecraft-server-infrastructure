@@ -41,13 +41,17 @@ rules:
                 do:
                   - log:
                       level: INFO
-                      message: "Waiting for server to start..."
+                      message: "Waiting for server to start ($${$${connection.server.name}.startup_timer} seconds elapsed)..."
                 timeout: 2m
                 update_interval: 10s
+      - log:
+          level: INFO
+          message: "Server started successfully."
       - allow_connection:
           connection: $${connection}
           server: $${connection.server}
-  auto_sleep_on_empty:
+  
+  auto_stop_on_empty:
     triggers:
       - empty_server:
           empty_time: 5m
