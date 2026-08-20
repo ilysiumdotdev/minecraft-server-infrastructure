@@ -5,3 +5,4 @@ resources:
   - helmrepository.yml
   - secretstore.yml
   - tcproute.yml
+  - udproute.yml
