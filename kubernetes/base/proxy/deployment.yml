@@ -65,7 +65,7 @@ spec:
             - name: minecraft
               containerPort: 25565
               protocol: TCP
-            - name: minecraft-bedrock
+            - name: mc-bedrock
               containerPort: 19132
               protocol: UDP
           volumeMounts:
