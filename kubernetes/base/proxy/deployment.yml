@@ -65,6 +65,9 @@ spec:
             - name: minecraft
               containerPort: 25565
               protocol: TCP
+            - name: minecraft-bedrock
+              containerPort: 19132
+              protocol: UDP
           volumeMounts:
             - name: tools
               mountPath: /tools
