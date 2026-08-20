@@ -1,3 +1,7 @@
+## GeyserMC
+## 
+https://cdn.modrinth.com/data/wKkoqHrH/versions/PHzjYUn0/Geyser-Velocity.jar
+
 ## AutoStartStop
 ##
-https://hangarcdn.papermc.io/plugins/beyenilmez/AutoStartStop/versions/1.1.0-beta/VELOCITY/AutoStartStop-1.1.0-beta.jar
+https://cdn.modrinth.com/data/v4AuPBie/versions/Ew8Rgw0R/AutoStartStop-1.1.0-beta.jar
